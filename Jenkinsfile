@@ -3,7 +3,7 @@ pipeline {
      stages {
          stage('Role') {
              steps {
-                  withAWS(region:'eu-central-1',credentials:'aws') {
+                  withAWS(region:'us-west-2',credentials:'aws') {
                        sh 'create_cluster.sh'
                   }
              }  
