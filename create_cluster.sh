@@ -1,1 +1,1 @@
-eksctl version
+aws iam get-user
