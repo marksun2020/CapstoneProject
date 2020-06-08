@@ -1,9 +1,9 @@
 pipeline {
      agent any
-     checkout scm
      stages {
          stage('Role') {
              steps {
+                  checkout scm
                   withAWS(region:'us-west-2',credentials:'marksun') {
                        sh 'create_cluster.sh'
                   }
