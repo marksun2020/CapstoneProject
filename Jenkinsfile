@@ -5,7 +5,7 @@ pipeline {
              steps {
                   checkout scm
                   withAWS(region:'us-west-2',credentials:'marksun') {
-                       sh 'eksctl version'
+                       sh 'eksctl create cluster --name capstoneCluster --region us-west-2'
                   }
              }  
          }
