@@ -32,8 +32,8 @@ pipeline {
                   checkout scm
                   withAWS(region:'us-west-2',credentials:'marksun') {
                        sh 'eksctl create cluster --name capstone --region us-west-2 --nodes=2 --node-type=t2.micro'
+                       sh 'kubectl get nodes'
                   }
-                  sh 'kubectl get nodes'
              }  
          }
      }
