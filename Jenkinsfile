@@ -7,8 +7,10 @@ pipeline {
      }
      stages {
         stage('Prepare docker image') {
-             script {
-               dockerImage = docker.build registry + ":$BUILD_NUMBER"
+             steps{
+                  script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                  }
              }
         }
         stage('Deploy Image') {
