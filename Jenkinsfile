@@ -30,15 +30,10 @@ pipeline {
          stage('Create EKS') {
              steps {
                   checkout scm
-                  /*withAWS(region:'us-west-2',credentials:'marksun') {
-                       sh 'eksctl create cluster --name capstone --region us-west-2 --nodes=2 --node-type=t2.micro'
-                       sh 'kubectl apply -f deployment.yml'
-                       sh 'kubectl get nodes'
-                  }*/
-                  withKubeConfig([credentialsId: 'jenkins-deployer-credentials']) {
-                    script {
-                      sh "kubectl get pod"
-                    }
+                  withAWS(region:'us-west-2',credentials:'marksun') {
+                       // sh 'eksctl create cluster --name capstone --region us-west-2 --nodes=2 --node-type=t2.micro'
+                       sh '~/bin/kubectl apply -f deployment.yml'
+                       // sh 'kubectl get nodes'
                   }
              }  
          }
