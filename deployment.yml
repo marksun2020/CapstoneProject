@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: capstone
   labels:
-    role: app
+    app: capstoneproject
 spec:
   replicas: 1
   selector:
     matchLabels:
-      role: app
+      app: capstoneproject
   template:
     metadata:
       labels:
-        role: app
+        app: capstoneproject
     spec:
       containers:
       - name: app
