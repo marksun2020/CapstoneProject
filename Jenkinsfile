@@ -9,7 +9,8 @@ pipeline {
         stage('Prepare docker image') {
              steps{
                   script {
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                    // dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                    dockerImage = docker.build registry
                   }
              }
         }
@@ -17,7 +18,9 @@ pipeline {
            steps{
                 script {
                     docker.withRegistry( '', registryCredential ) {
-                        dockerImage.push()
+                        //dockerImage.push()
+                         dockerImage.push($BUILD_NUMBER)
+                        dockerImage.push("latest")
                     }
                 }
            }
@@ -36,7 +39,7 @@ pipeline {
                   }
              }  
          }*/
-          stage('Deploy kubernetes') {
+          /*stage('Deploy kubernetes') {
                steps {
                     checkout scm
                     withAWS(region:'us-west-2',credentials:'marksun') {
@@ -44,6 +47,6 @@ pipeline {
                          sh "/var/lib/jenkins/kubectl apply -f deployment-service.yml"    
                     }
                }
-          }
+          }*/
      }
 }
