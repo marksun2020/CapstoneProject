@@ -27,7 +27,7 @@ pipeline {
              sh "docker rmi $registry:$BUILD_NUMBER"
            }
          }  */
-         stage('Create EKS') {
+         /*stage('Create EKS') {
              steps {
                   checkout scm
                   withAWS(region:'us-west-2',credentials:'marksun') {
@@ -35,10 +35,11 @@ pipeline {
                        // sh '/var/lib/jenkins/kubectl get nodes'
                   }
              }  
-         }
+         }*/
           stage('Deploy kubernetes') {
                steps {
-                    script {
+                    checkout scm
+                    withAWS(region:'us-west-2',credentials:'marksun') {
                          sh "/var/lib/jenkins/kubectl apply -f deployment.yml"
                          sh "/var/lib/jenkins/kubectl apply -f deployment-service.yml"    
                     }
