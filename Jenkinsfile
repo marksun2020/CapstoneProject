@@ -6,7 +6,7 @@ pipeline {
           dockerImage = ''
      }
      stages {
-        /*stage('Prepare docker image') {
+        stage('Prepare docker image') {
              steps{
                   script {
                     dockerImage = docker.build registry + ":$BUILD_NUMBER"
@@ -26,7 +26,7 @@ pipeline {
            steps{
              sh "docker rmi $registry:$BUILD_NUMBER"
            }
-         }  */
+         }  
          /*stage('Create EKS') {
              steps {
                   checkout scm
