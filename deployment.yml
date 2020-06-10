@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: marksun2020/capstone:latest
+        image: marksun2020/capstone:39
         imagePullPolicy: "Always"
         ports:
         - containerPort: 80 
