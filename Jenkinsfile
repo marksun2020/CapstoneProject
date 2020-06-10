@@ -3,10 +3,24 @@ pipeline {
      environment {
          registry = "marksun2020/capstone"
          registryCredential = 'dockerhub'
-          dockerImage = ''
+         hadolintres = ''
+         dockerImage = ''
      }
      stages {
-        stage('Prepare docker image') {
+        stage ("lint dockerfile") {
+              agent {
+                  docker {
+                      image 'hadolint/hadolint:latest-debian'
+                  }
+              }
+              steps {
+                  hadolintres = sh(script: 'hadolint Dockerfile', returnStdout: true).trim()
+                  if (hadolintres != '') {
+                       error("Errors in the dockerfile: ${hadolintres}")
+                  }
+              }
+        }
+        /*stage('Prepare docker image') {
              steps{
                   script {
                     // dockerImage = docker.build registry + ":$BUILD_NUMBER"
@@ -29,7 +43,7 @@ pipeline {
            steps{
              sh "docker rmi $registry:$BUILD_NUMBER"
            }
-         }  
+         }  */
          /*stage('Create EKS') {
              steps {
                   checkout scm
