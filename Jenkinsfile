@@ -15,10 +15,11 @@ pipeline {
               }
               steps {
                   script {
-                       hadolintres = sh(script: 'hadolint Dockerfile', returnStdout: true).trim()
-                       if (hadolintres != '') {
-                            error("Errors in the dockerfile: ${hadolintres}")
-                       }
+                       sh 'hadolint Dockerfile'
+                       //hadolintres = sh(script: 'hadolint Dockerfile', returnStdout: true).trim()
+                       //if (hadolintres != '') {
+                       //     error("Errors in the dockerfile: ${hadolintres}")
+                       //}
                   }
               }
         }
