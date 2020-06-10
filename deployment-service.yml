@@ -3,7 +3,6 @@ kind: Service
 metadata:
   name: capstone-service
 spec:
-  replicas: 1
   selector:
     app: capstoneproject
   ports:
