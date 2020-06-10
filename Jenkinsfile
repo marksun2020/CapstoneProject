@@ -31,12 +31,18 @@ pipeline {
              steps {
                   checkout scm
                   withAWS(region:'us-west-2',credentials:'marksun') {
-                       // sh 'eksctl create cluster --name capstone --region us-west-2 --nodes=2 --node-type=t2.micro'
-                       sh "/var/lib/jenkins/kubectl apply -f deployment.yml"
-                       sh "/var/lib/jenkins/kubectl apply -f deployment-service.yml"
+                       sh 'eksctl create cluster --name capstone --region us-west-2 --nodes=2 --node-type=t2.micro'
                        // sh '/var/lib/jenkins/kubectl get nodes'
                   }
              }  
          }
+          stage('Deploy kubernetes') {
+               steps {
+                    script {
+                         sh "/var/lib/jenkins/kubectl apply -f deployment.yml"
+                         sh "/var/lib/jenkins/kubectl apply -f deployment-service.yml"    
+                    }
+               }
+          }
      }
 }
