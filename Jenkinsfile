@@ -18,16 +18,14 @@ pipeline {
                        hadolintres = sh(script: 'hadolint Dockerfile', returnStdout: true).trim()
                        echo "${hadolintres}"  
                        if (hadolintres != '') {
-                            // error("Errors in the dockerfile: ${hadolintres}")
                             currentBuild.result = 'FAILURE'
                        }
                   }
               }
         }
-        /*stage('Prepare docker image') {
+        stage('Prepare docker image') {
              steps{
                   script {
-                    // dockerImage = docker.build registry + ":$BUILD_NUMBER"
                     dockerImage = docker.build registry
                   }
              }
@@ -36,7 +34,6 @@ pipeline {
            steps{
                 script {
                     docker.withRegistry( '', registryCredential ) {
-                        //dockerImage.push()
                          dockerImage.push("$BUILD_NUMBER")
                         dockerImage.push("latest")
                     }
@@ -47,8 +44,8 @@ pipeline {
            steps{
              sh "docker rmi $registry:$BUILD_NUMBER"
            }
-         }  */
-         /*stage('Create EKS') {
+         }  
+         stage('Create EKS') {
              steps {
                   checkout scm
                   withAWS(region:'us-west-2',credentials:'marksun') {
@@ -56,8 +53,8 @@ pipeline {
                        // sh '/var/lib/jenkins/kubectl get nodes'
                   }
              }  
-         }*/
-          /*stage('Deploy kubernetes') {
+         }
+          stage('Deploy kubernetes') {
                steps {
                     checkout scm
                     withAWS(region:'us-west-2',credentials:'marksun') {
@@ -65,6 +62,6 @@ pipeline {
                          sh "/var/lib/jenkins/kubectl apply -f deployment-service.yml"    
                     }
                }
-          }*/
+          }
      }
 }
