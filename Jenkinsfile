@@ -44,6 +44,15 @@ pipeline {
            steps{
              sh "docker rmi $registry:$BUILD_NUMBER"
            }
-         }  
+         }
+          stage('Deploy kubernetes') {
+               steps {
+                    checkout scm
+                    withAWS(region:'us-west-2',credentials:'marksun') {
+                         sh "/var/lib/jenkins/kubectl apply -f deployment.yml"
+                         sh "/var/lib/jenkins/kubectl apply -f deployment-service.yml"    
+                    }
+               }
+          }
      }
 }
